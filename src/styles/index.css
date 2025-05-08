@@ -11,9 +11,10 @@
 }
 
 body {
-  margin: 0 auto;
+  margin: 0px auto;
   max-width: 1300px;
   min-height: 100vh;
+  background-color: #f2f2f2;
 }
 
 a {
@@ -27,5 +28,5 @@ li {
 
 input,
 button {
-  font-family: "Yekan";
+  font-family: "vazirmatn";
 }

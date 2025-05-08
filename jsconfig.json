@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "src/*": ["src/*"],
+      "assets/*": ["src/assets/*"],
+      "components/*": ["src/components/*"],
+      "modules/*": ["src/components/modules/*"],
+      "templates/*": ["src/components/templates/*"],
+      "router/*": ["src/router/*"],
+      "services/*": ["src/services/*"],
+      "pages/*": ["src/pages/*"],
+      "context/*": ["src/context/*"],
+      "constants/*": ["src/constants/*"],
+      "configs/*": ["src/configs/*"],
+      "utils/*": ["src/utils/*"],
+      "validation/*": ["src/validation/*"]
+    }
+  }
+}

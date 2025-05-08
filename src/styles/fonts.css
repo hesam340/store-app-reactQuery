@@ -1,13 +1,17 @@
 @font-face {
-  font-family: "Yekan";
-  src: url("../assets/fonts/Yekan.eot");
-  src: url("../assets/fonts/Yekan.eot?#iefix") format("embedded-opentype"),
-    url("../assets/fonts/Yekan.woff2") format("woff2"),
-    url("../assets/fonts/Yekan.woff") format("woff"),
-    url("../assets/fonts/Yekan.otf") format("opentype"),
-    url("../assets/fonts/Yekan.ttf") format("truetype");
+  font-family: "kalameh";
+  src: url("../assets/fonts/Kalameh/Kalameh.eot");
+  src: url("../assets/fonts/Kalameh/Kalameh.woff2") format("woff2"),
+    url("../assets/fonts/Kalameh/Kalameh.woff") format("woff"),
+    url("../assets/fonts/Kalameh/Kalameh.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   text-rendering: optimizeLegibility;
   font-display: auto;
+}
+
+@font-face {
+  font-family: "vazirmatn";
+  src: url("../assets/fonts/vazirmatn/Vazirmatn-Regular.ttf") format("truetype");
+  font-style: normal;
 }

@@ -1,7 +1,22 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { BrowserRouter } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+
+import defaultOptions from "configs/reactQuery";
+import Router from "router/Router";
+
 function App() {
+  const queryClient = new QueryClient({ defaultOptions });
   return (
     <>
-      <h1>hesam khaki</h1>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <Router />
+          <ToastContainer />
+        </BrowserRouter>
+        <ReactQueryDevtools />
+      </QueryClientProvider>
     </>
   );
 }
