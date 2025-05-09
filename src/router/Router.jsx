@@ -1,13 +1,19 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 
 import AuthPage from "pages/AuthPage";
 import HomePage from "pages/HomePage";
+import { useUser } from "context/UserContext";
 
 function Router() {
+  const { user } = useUser();
+
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
-      <Route path="/auth" element={<AuthPage />} />
+      <Route
+        path="/auth"
+        element={user.token ? <Navigate to="/" /> : <AuthPage />}
+      />
     </Routes>
   );
 }

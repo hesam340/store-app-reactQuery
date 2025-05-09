@@ -5,18 +5,21 @@ import { ToastContainer } from "react-toastify";
 
 import defaultOptions from "configs/reactQuery";
 import Router from "router/Router";
+import UserProvider from "context/UserContext";
 
 function App() {
   const queryClient = new QueryClient({ defaultOptions });
   return (
     <>
-      <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-          <Router />
-          <ToastContainer />
-        </BrowserRouter>
-        <ReactQueryDevtools />
-      </QueryClientProvider>
+      <UserProvider>
+        <QueryClientProvider client={queryClient}>
+          <BrowserRouter>
+            <Router />
+            <ToastContainer />
+          </BrowserRouter>
+          <ReactQueryDevtools />
+        </QueryClientProvider>
+      </UserProvider>
     </>
   );
 }
