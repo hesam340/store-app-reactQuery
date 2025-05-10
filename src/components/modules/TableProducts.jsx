@@ -1,4 +1,5 @@
 import productId from "utils/productId";
+import { sp } from "utils/replaceNumber";
 
 import styles from "./TableProducts.module.css";
 
@@ -9,7 +10,7 @@ function TableProducts({ products }) {
         <tr>
           <th>نام کالا</th>
           <th>موجودی</th>
-          <th>قیمت</th>
+          <th>قیمت (تومان)</th>
           <th>شناسه کالا</th>
           <th></th>
         </tr>
@@ -29,8 +30,8 @@ function TableRow({ product }) {
   return (
     <tr>
       <td>{product.name}</td>
-      <td>{product.quantity}</td>
-      <td>{product.price}</td>
+      <td>{sp(product.quantity)}</td>
+      <td>{sp(product.price)}</td>
       <td>{productId(product.id)}</td>
       <td>
         <div>

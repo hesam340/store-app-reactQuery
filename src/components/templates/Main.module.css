@@ -32,9 +32,8 @@
 }
 
 .titleLeft button {
-  border: 1px solid #55a3f0;
+  border: none;
   border-radius: 10px;
-  background-color: #55a3f0;
   cursor: pointer;
   padding: 8px 10px;
   color: #fff;
@@ -42,17 +41,32 @@
   transition: all 0.2s ease-in;
 }
 
-.titleLeft button:hover {
+.titleLeft .addButton {
+  border: 1px solid #55a3f0;
+  background-color: #55a3f0;
+}
+
+.titleLeft .addButton:hover {
   color: #55a3f0;
   background-color: #fff;
 }
 
-.titleLeft button:first-child {
-  background-color: red;
-  border: 1px solid red;
+.titleLeft .deleteButton {
+  background-color: red ;
+  border: 1px solid red ;
 }
 
-.titleLeft button:first-child:hover {
+.titleLeft .deleteButton:hover {
   background-color: #fff;
   color: red;
+}
+
+.titleLeft .priceBaseButton {
+  background-color: #e9a318;
+  border: 1px solid #e9a318;
+}
+
+.titleLeft .priceBaseButton:hover {
+  color: #e9a318;
+  background-color: #fff;
 }

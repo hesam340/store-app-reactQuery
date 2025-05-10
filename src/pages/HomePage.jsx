@@ -5,16 +5,15 @@ import { useAllProducts } from "hooks/queries";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { createQueryObject } from "utils/query";
+import { getInitialQuery } from "utils/query";
 
 function HomePage() {
-  const [page, setPage] = useState(1);
-  const [query, setQuery] = useState({});
   const [searchParams, setSearchParams] = useSearchParams();
-  console.log(page,query)
-
-  useEffect(() => {
-    setSearchParams(query);
-  }, [query]);
+  const initialQuery = getInitialQuery(searchParams);
+  const [page, setPage] = useState(Number(initialQuery.page || 1));
+  const [query, setQuery] = useState({ ...initialQuery, limit: 10 });
+  console.log(searchParams.get("page"));
 
   const {
     isPending: productsLoading,
@@ -22,6 +21,12 @@ function HomePage() {
     error: productsError,
   } = useAllProducts(query.page);
   console.log({ productsLoading, products, productsError });
+
+  useEffect(() => {
+    const newQuery = createQueryObject(query, { page });
+    setQuery(newQuery);
+    setSearchParams(newQuery);
+  }, [page]);
 
   if (productsLoading) return <Loader />;
 

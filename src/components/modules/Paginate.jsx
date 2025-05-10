@@ -1,8 +1,8 @@
-import { PaginationItem, Stack, Typography } from "@mui/material";
+import { PaginationItem, Stack } from "@mui/material";
 import { Pagination } from "@mui/material";
 
 import { useEffect } from "react";
-import createQueryObject from "utils/query";
+import { createQueryObject } from "utils/query";
 import { e2p } from "utils/replaceNumber";
 
 function Paginate({ page, setPage, setQuery, count }) {
