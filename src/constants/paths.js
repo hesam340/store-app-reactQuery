@@ -11,5 +11,6 @@ export const paths = [
   "context",
   "constants",
   "utils",
+  "hooks",
   "validation",
 ];

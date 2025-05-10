@@ -1,0 +1,72 @@
+.container {
+  margin: 50px auto 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: "vazirmatn";
+  width: 100%;
+  padding: 10px;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.titleRight {
+  display: flex;
+  color: #282828;
+  align-items: center;
+}
+
+.titleRight p {
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+
+.titleLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.titleLeft button {
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 8px 10px;
+  color: #fff;
+  font-size: 1rem;
+  transition: all 0.2s ease-in;
+}
+
+.titleLeft .addButton {
+  border: 1px solid #55a3f0;
+  background-color: #55a3f0;
+}
+
+.titleLeft .addButton:hover {
+  color: #55a3f0;
+  background-color: #fff;
+}
+
+.titleLeft .deleteButton {
+  background-color: red ;
+  border: 1px solid red ;
+}
+
+.titleLeft .deleteButton:hover {
+  background-color: #fff;
+  color: red;
+}
+
+.titleLeft .priceBaseButton {
+  background-color: #e9a318;
+  border: 1px solid #e9a318;
+}
+
+.titleLeft .priceBaseButton:hover {
+  color: #e9a318;
+  background-color: #fff;
+}
