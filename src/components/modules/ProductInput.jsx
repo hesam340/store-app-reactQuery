@@ -1,8 +1,8 @@
-import React from 'react'
+import styles from "./ProductInput.module.css";
 
 function ProductInput({ name, title, register, errors }) {
   return (
-    <div>
+    <div className={styles.addInputs}>
       <label htmlFor={name}>{title}</label>
       <input
         type={name === "name" ? "text" : "number"}
