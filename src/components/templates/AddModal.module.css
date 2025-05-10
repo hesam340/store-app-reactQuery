@@ -64,9 +64,9 @@
 }
 
 .container button:last-child {
-  color: #282828CC;
-  background-color: #DFDFDF;
-  border: 2px solid #DFDFDF;
+  color: #282828cc;
+  background-color: #dfdfdf;
+  border: 2px solid #dfdfdf;
 }
 
 .container button:last-child:hover {

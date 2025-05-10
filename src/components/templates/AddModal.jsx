@@ -1,13 +1,13 @@
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
 
-import styles from "./AddModal.module.css";
-import productSchema from "validation/productSchema";
-import ProductInput from "components/modules/ProductInput";
-import { useAddProduct } from "hooks/mutations";
+import styles from './AddModal.module.css';
+import productSchema from 'validation/productSchema';
+import ProductInput from 'components/modules/ProductInput';
+import { useAddProduct } from 'hooks/mutations';
 
 function AddModal({ setShowAddModal }) {
-  const { mutate } = useAddProduct()
+  const { mutate } = useAddProduct();
 
   const {
     register,
@@ -16,13 +16,13 @@ function AddModal({ setShowAddModal }) {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(productSchema),
-    mode: "onTouched",
+    mode: 'onTouched',
   });
 
   const addHandler = (data) => {
     mutate(data);
     reset();
-  }
+  };
 
   return (
     <div className={styles.container}>
@@ -58,4 +58,4 @@ function AddModal({ setShowAddModal }) {
     </div>
   );
 }
-export default AddModal
+export default AddModal;
