@@ -13,7 +13,6 @@ function HomePage() {
   const initialQuery = getInitialQuery(searchParams);
   const [page, setPage] = useState(Number(initialQuery.page || 1));
   const [query, setQuery] = useState({ ...initialQuery, limit: 10 });
-  console.log(searchParams.get("page"));
 
   const {
     isPending: productsLoading,

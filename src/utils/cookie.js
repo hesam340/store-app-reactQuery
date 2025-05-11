@@ -1,5 +1,5 @@
 const setCookie = (token) => {
-  document.cookie = `token=${token};max-age=${5 * 24 * 60 * 60}`;
+  document.cookie = `token=${token};max-age=${5 * 24 * 60 * 60};path=/`;
 };
 
 const getCookie = () => {
