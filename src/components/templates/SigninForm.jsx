@@ -22,7 +22,7 @@ function SigninForm({ setStep, register, handleSubmit, errors, reset }) {
     if (result?.res?.token) {
       toast.success(`${data.username} خوش آمدید`);
       setCookie(result.res.token);
-      setUser({ username: data.username, token: result.res.token });
+      setUser({ username: data.username });
       navigate("/");
       reset();
     } else if (result?.error?.status === 400) {
