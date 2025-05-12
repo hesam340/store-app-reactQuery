@@ -20,6 +20,10 @@
   border-top-left-radius: 30px;
 }
 
+.table tbody input {
+  cursor: pointer;
+}
+
 .table tbody td {
   padding: 15px 0px;
   font-size: 0.95rem;

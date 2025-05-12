@@ -2,9 +2,21 @@ import styles from "./Input.module.css";
 
 function Input({ name, register, errors, placeholder }) {
   return (
-    <div className={styles.input}>
+    <div
+      className={
+        name === "minPrice" || name === "maxPrice"
+          ? styles.priceInput
+          : styles.input
+      }
+    >
       <input
-        type={name === "username" ? "text" : "password"}
+        type={
+          name === "username"
+            ? "text"
+            : name === "minPrice" || name === "maxPrice"
+            ? "number"
+            : "password"
+        }
         {...register(name)}
         placeholder={placeholder}
       />

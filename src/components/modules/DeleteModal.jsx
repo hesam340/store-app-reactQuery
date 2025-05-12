@@ -1,4 +1,4 @@
-import styles from './DeleteModal.module.css';
+import styles from "./DeleteModal.module.css";
 
 function DeleteModal({ count, confirmHandler, setShowDeleteModal }) {
   return (

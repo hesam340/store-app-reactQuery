@@ -1,14 +1,23 @@
-import AddModal from 'components/templates/AddModal';
-import DeleteModal from './DeleteModal';
-import { e2p } from 'utils/replaceNumber';
-import { useGroupDeleteProducts } from 'hooks/mutations';
+import AddModal from "components/templates/AddModal";
+import DeleteModal from "./DeleteModal";
+import { e2p } from "utils/replaceNumber";
+import { useGroupDeleteProducts } from "hooks/mutations";
 
-import styles from './Actions.module.css';
-import { useState } from 'react';
+import styles from "./Actions.module.css";
+import { useState } from "react";
+import PriceInputs from "./PriceInputs";
 
-function Actions({ setCheckBox, setGroupDelete, groupDelete, checkBox }) {
+function Actions({
+  setCheckBox,
+  setGroupDelete,
+  groupDelete,
+  checkBox,
+  setQuery,
+  allProducts,
+}) {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showPriceRange, setShowPriceRange] = useState(false);
 
   const { mutate } = useGroupDeleteProducts();
 
@@ -31,7 +40,20 @@ function Actions({ setCheckBox, setGroupDelete, groupDelete, checkBox }) {
         <p>مدیریت کالا</p>
       </div>
       <div className={styles.titleLeft}>
-        <button className={styles.priceBaseButton}>جستجو بر اساس قیمت</button>
+        {!showPriceRange ? (
+          <button
+            className={styles.priceBaseButton}
+            onClick={() => setShowPriceRange(true)}
+          >
+            فیلتر بر اساس قیمت
+          </button>
+        ) : (
+          <PriceInputs
+            setShowPriceRange={setShowPriceRange}
+            setQuery={setQuery}
+            allProducts={allProducts}
+          />
+        )}
         {!groupDelete.length ? (
           <button
             className={styles.deleteButton}

@@ -1,9 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import api from "configs/api";
 
-const useAllProducts = (page) => {
-  const queryKey = ["products", page];
-  const queryFn = ({queryKey}) => api.get(`/products?page=${queryKey[1]}&limit=10`);
+const useAllProducts = (query) => {
+  const queryKey = ["products", query];
+  const queryFn = ({ queryKey }) => {
+    const { page = 1, minPrice = "", maxPrice = "", limit = 10 } = queryKey[1];
+    return api.get(
+      `/products?page=${page}&minPrice=${minPrice}&maxPrice=${maxPrice}&limit=${limit}`
+    );
+  };
   return useQuery({ queryKey, queryFn });
 };
 

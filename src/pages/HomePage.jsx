@@ -5,42 +5,53 @@ import { useAllProducts } from "hooks/queries";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { createQueryObject } from "utils/query";
-import { getInitialQuery } from "utils/query";
+import getAllPages from "utils/getAllPages";
 
 function HomePage() {
+  const [allProducts, setAllProducts] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
-  const initialQuery = getInitialQuery(searchParams);
-  const [page, setPage] = useState(Number(initialQuery.page || 1));
-  const [query, setQuery] = useState({ ...initialQuery, limit: 10 });
+  const [query, setQuery] = useState({ limit: 10, page: 1 });
+  console.log(query);
 
   const {
     isPending: productsLoading,
     data: products,
     error: productsError,
-  } = useAllProducts(query.page);
+    refetch,
+  } = useAllProducts(query);
   console.log({ productsLoading, products, productsError });
 
   useEffect(() => {
-    const newQuery = createQueryObject(query, { page });
-    setQuery(newQuery);
-    setSearchParams(newQuery);
-  }, [page]);
+    if (products) {
+      const allProducts = async () => {
+        const fetchProducts = await getAllPages(products.totalPages);
+        return setAllProducts(fetchProducts);
+      };
+      allProducts();
+    }
+  }, [products]);
+
+  useEffect(() => {
+    setSearchParams(query)
+    refetch();
+  }, [query]);
 
   if (productsLoading) return <Loader />;
 
-  if (productsError)
-    return toast.error("مشکلی پیش آمده است لطفا دوباره وارد شوید");
+  if (productsError) {
+    return toast.error(
+      "هیچ محصولی در بازه قیمتی وارد شده وجود ندارد ، لطفا دوباره صفحه را ریلود کنید"
+    );
+  }
 
   return (
     <div style={{ padding: "20px 50px 30px" }}>
-      <Main products={products.data} />
-      <Paginate
-        page={page}
-        setPage={setPage}
+      <Main
+        products={products.data}
         setQuery={setQuery}
-        count={products.totalPages}
+        allProducts={allProducts}
       />
+      <Paginate query={query} setQuery={setQuery} count={products.totalPages} />
     </div>
   );
 }

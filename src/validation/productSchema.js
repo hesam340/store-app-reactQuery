@@ -15,9 +15,10 @@ export const productSchema = object({
     .positive("مقدار را به درستی وارد کنید")
     .required(),
   price: number()
+    .required()
+    .integer("لطفا فقط اعداد صحیح(بدون اعشار) وارد کنید")
     .typeError("لطفا فقط عدد وارد کنید")
-    .positive("مقدار را به درستی وارد کنید")
-    .required(),
-})
+    .positive("مقدار را به درستی وارد کنید"),
+});
 
 export default productSchema;

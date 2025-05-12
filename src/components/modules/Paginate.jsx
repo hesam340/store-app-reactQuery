@@ -1,21 +1,16 @@
 import { PaginationItem, Stack } from "@mui/material";
 import { Pagination } from "@mui/material";
-
-import { useEffect } from "react";
-import { createQueryObject } from "utils/query";
 import { e2p } from "utils/replaceNumber";
 
-function Paginate({ page, setPage, setQuery, count }) {
-  useEffect(() => {
-    setQuery((query) => createQueryObject(query, { page }));
-  }, [page]);
-
+function Paginate({ query, setQuery, count }) {
   return (
     <Stack spacing={2} alignItems="center">
       <Pagination
         count={count}
-        page={page}
-        onChange={(e, number) => setPage(number)}
+        page={query.page}
+        onChange={(e, number) =>
+          setQuery((query) => ({ ...query, page: number }))
+        }
         renderItem={(item) => (
           <PaginationItem
             {...item}

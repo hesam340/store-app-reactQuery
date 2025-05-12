@@ -1,10 +1,10 @@
-import TableProducts from 'components/modules/TableProducts';
-import React, { useState } from 'react';
+import TableProducts from "components/modules/TableProducts";
+import React, { useState } from "react";
 
-import styles from './Main.module.css';
-import Actions from 'components/modules/Actions';
+import styles from "./Main.module.css";
+import Actions from "components/modules/Actions";
 
-function Main({ products }) {
+function Main({ products, setQuery , allProducts}) {
   const [groupDelete, setGroupDelete] = useState([]);
   const [checkBox, setCheckBox] = useState(false);
 
@@ -15,6 +15,8 @@ function Main({ products }) {
         setGroupDelete={setGroupDelete}
         groupDelete={groupDelete}
         checkBox={checkBox}
+        setQuery={setQuery}
+        allProducts={allProducts}
       />
       <div className={styles.main}>
         <TableProducts
