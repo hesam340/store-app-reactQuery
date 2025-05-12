@@ -5,9 +5,14 @@ import priceSchema from "validation/priceSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
 import { e2p } from "utils/replaceNumber";
+import { useSearchParams } from "react-router-dom";
 
-function PriceInputs({ setShowPriceModal, setQuery, allProducts }) {
+function PriceInputs({ setQuery, allProducts, query }) {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [price, setPrice] = useState({});
+
+  const minPrice = searchParams.get("minPrice");
+  const maxPrice = searchParams.get("maxPrice");
 
   useEffect(() => {
     if (allProducts) {
@@ -30,18 +35,32 @@ function PriceInputs({ setShowPriceModal, setQuery, allProducts }) {
     mode: "onTouched",
   });
 
+  useEffect(() => {
+    reset({ minPrice, maxPrice });
+  }, []);
+
   const confirmHandler = (data) => {
-    setQuery((query) => ({
-      ...query,
-      page: 1,
-      minPrice: data.minPrice,
-      maxPrice: data.maxPrice,
-    }));
+    setQuery((query) => {
+      const newQuery = { ...query, page: 1 };
+
+      if (data.minPrice !== null && data.minPrice !== "") {
+        newQuery.minPrice = data.minPrice;
+      } else {
+        delete newQuery.minPrice;
+      }
+
+      if (data.maxPrice !== null && data.maxPrice !== "") {
+        newQuery.maxPrice = data.maxPrice;
+      } else {
+        delete newQuery.maxPrice;
+      }
+
+      return newQuery;
+    });
   };
 
   const cancelHandler = () => {
-    setShowPriceModal(false);
-    reset();
+    reset({ minPrice: "", maxPrice: "" });
   };
 
   return (
@@ -49,21 +68,18 @@ function PriceInputs({ setShowPriceModal, setQuery, allProducts }) {
       <div className={styles.inputs}>
         <Input
           name="minPrice"
-          placeholder={` از - ${e2p(+price.minPrice)}`}
+          placeholder={`از - ${e2p(+price.minPrice)}`}
           register={register}
           errors={errors}
         />
         <Input
           name="maxPrice"
-          placeholder={` تا - ${e2p(+price.maxPrice)}`}
+          placeholder={`تا - ${e2p(+price.maxPrice)}`}
           register={register}
           errors={errors}
         />
       </div>
-      <div className={styles.buttons}>
-        <button onClick={handleSubmit(confirmHandler)}>اعمال</button>
-        <button onClick={() => cancelHandler}>لغو</button>
-      </div>
+      <button onClick={handleSubmit(confirmHandler)}>اعمال</button>
     </form>
   );
 }

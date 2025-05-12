@@ -2,16 +2,28 @@ import { number, object, ref } from "yup";
 
 const priceSchema = object({
   minPrice: number()
-    .required()
+    .nullable()
     .integer("لطفا فقط اعداد صحیح(بدون اعشار) وارد کنید")
-    .typeError("لطفا فقط عدد وارد کنید")
-    .positive("مقدار را به درستی وارد کنید"),
+    .min(0, "مقدار نمیتونه کمتر از صفر باشه")
+    .transform((value, originalValue) => {
+      return String(originalValue).trim() === "" || isNaN(originalValue)
+        ? null
+        : value;
+    }),
   maxPrice: number()
-    .required()
+    .nullable()
     .integer("لطفا فقط اعداد صحیح(بدون اعشار) وارد کنید")
-    .typeError("لطفا فقط عدد وارد کنید")
-    .positive("مقدار را به درستی وارد کنید")
-    .moreThan(ref("minPrice"), "حداکثر قیمت باید بیشتر از حداقل قیمت باشد"),
+    .min(0, "مقدار نمیتونه کمتر از صفر باشه")
+    .transform((value, originalValue) => {
+      return String(originalValue).trim() === "" || isNaN(originalValue)
+        ? null
+        : value;
+    })
+    .when("minPrice", (minPrice, schema) =>
+      minPrice !== null
+        ? schema.moreThan(minPrice, "حداکثر قیمت باید بیشتر از حداقل قیمت باشد")
+        : schema
+    ),
 });
 
 export default priceSchema;

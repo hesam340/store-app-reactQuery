@@ -1,6 +1,7 @@
 .form {
   display: flex;
   margin-left: 100px;
+  align-items: center;
 }
 
 .form .inputs {
@@ -9,32 +10,14 @@
   margin-left: 30px;
 }
 
-.form .buttons {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-}
-
-.form .buttons button:first-child {
+.form button {
   border: 1px solid #76de42;
   background-color: #76de42;
   padding: 5px 10px;
   margin-bottom: 15px;
 }
 
-.form .buttons button:first-child:hover {
+.form button:hover {
   color: #76de42;
   background-color: #fff;
-}
-
-.form .buttons button:last-child {
-  border: 1px solid #dfdfdf;
-  background-color: #dfdfdf;
-  padding: 5px 10px;
-  color: #282828cc;
-  margin-bottom: 15px;
-}
-
-.form .buttons button:last-child:hover {
-  background-color: #bababa;
 }

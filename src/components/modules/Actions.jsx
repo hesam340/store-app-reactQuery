@@ -14,10 +14,10 @@ function Actions({
   checkBox,
   setQuery,
   allProducts,
+  query
 }) {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [showPriceRange, setShowPriceRange] = useState(false);
 
   const { mutate } = useGroupDeleteProducts();
 
@@ -40,20 +40,11 @@ function Actions({
         <p>مدیریت کالا</p>
       </div>
       <div className={styles.titleLeft}>
-        {!showPriceRange ? (
-          <button
-            className={styles.priceBaseButton}
-            onClick={() => setShowPriceRange(true)}
-          >
-            فیلتر بر اساس قیمت
-          </button>
-        ) : (
           <PriceInputs
-            setShowPriceRange={setShowPriceRange}
             setQuery={setQuery}
             allProducts={allProducts}
+            query={query}
           />
-        )}
         {!groupDelete.length ? (
           <button
             className={styles.deleteButton}

@@ -6,11 +6,12 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import getAllPages from "utils/getAllPages";
+import { getInitialQuery } from "utils/query";
 
 function HomePage() {
   const [allProducts, setAllProducts] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [query, setQuery] = useState({ limit: 10, page: 1 });
+  const [query, setQuery] = useState({ limit: 10, ...getInitialQuery(searchParams) });
   console.log(query);
 
   const {
@@ -49,6 +50,7 @@ function HomePage() {
       <Main
         products={products.data}
         setQuery={setQuery}
+        query={query}
         allProducts={allProducts}
       />
       <Paginate query={query} setQuery={setQuery} count={products.totalPages} />
