@@ -41,7 +41,7 @@ function AddModal({
   };
 
   const editHandler = (data) => {
-    editMutate({...data,id});
+    editMutate({ ...data, id });
     reset();
     setShowEditModal(false);
   };

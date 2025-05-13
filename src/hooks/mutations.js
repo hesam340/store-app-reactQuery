@@ -19,7 +19,7 @@ const useAddProduct = () => {
 
 const useEditProduct = () => {
   const queryClient = useQueryClient();
-  const mutationFn = ({id,...data}) => api.put(`/products/${id}`, data);
+  const mutationFn = ({ id, ...data }) => api.put(`/products/${id}`, data);
   return useMutation({
     mutationFn,
     onSuccess: () => {
@@ -54,4 +54,24 @@ const useGroupDeleteProducts = () => {
   });
 };
 
-export { useAddProduct, useGroupDeleteProducts, useEditProduct };
+const useDeleteProduct = () => {
+  const queryClient = useQueryClient();
+  const mutationFn = (id) => api.delete(`/products/${id}`);
+  return useMutation({
+    mutationFn,
+    onSuccess: () => {
+      queryClient.invalidateQueries("products");
+      toast.success("کالای مذکور حذف شد");
+    },
+    onError: () => {
+      toast.error("مشکلی پیش آمده است");
+    },
+  });
+};
+
+export {
+  useAddProduct,
+  useGroupDeleteProducts,
+  useEditProduct,
+  useDeleteProduct,
+};

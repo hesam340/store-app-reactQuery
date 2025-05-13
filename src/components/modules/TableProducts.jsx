@@ -4,6 +4,8 @@ import { sp } from "utils/replaceNumber";
 import styles from "./TableProducts.module.css";
 import { useEffect, useState } from "react";
 import EditModal from "./EditModal";
+import DeleteModal from "./DeleteModal";
+import { useDeleteProduct } from "hooks/mutations";
 
 function TableProducts({ products, checkBox, setGroupDelete }) {
   return (
@@ -38,6 +40,9 @@ function TableRow({ product, checkBox, setGroupDelete }) {
   const { name, quantity, price, id } = product;
   const [checked, setChecked] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const { mutate } = useDeleteProduct();
 
   useEffect(() => {
     setGroupDelete((item) => {
@@ -54,6 +59,10 @@ function TableRow({ product, checkBox, setGroupDelete }) {
       setChecked(false);
     }
   }, [checkBox]);
+
+  const confirmHandler = () => {
+    mutate(id);
+  };
 
   return (
     <tr>
@@ -75,13 +84,24 @@ function TableRow({ product, checkBox, setGroupDelete }) {
           <button onClick={() => setShowEditModal(true)}>
             <img src="./edit.svg" alt="edit" />
           </button>
-          <button>
+          <button onClick={() => setShowDeleteModal(true)}>
             <img src="./trash.svg" alt="trash" />
           </button>
         </div>
       </td>
       {showEditModal && (
-        <EditModal id={id} setShowEditModal={setShowEditModal} product={product} />
+        <EditModal
+          id={id}
+          setShowEditModal={setShowEditModal}
+          product={product}
+        />
+      )}
+      {showDeleteModal && (
+        <DeleteModal
+          count={1}
+          confirmHandler={confirmHandler}
+          setShowDeleteModal={setShowDeleteModal}
+        />
       )}
     </tr>
   );
