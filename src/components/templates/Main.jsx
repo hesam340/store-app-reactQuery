@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import styles from "./Main.module.css";
 import Actions from "components/modules/Actions";
 
-function Main({ products, setQuery , allProducts, query}) {
+function Main({ products, setQuery , allProducts}) {
   const [groupDelete, setGroupDelete] = useState([]);
   const [checkBox, setCheckBox] = useState(false);
 
@@ -17,7 +17,6 @@ function Main({ products, setQuery , allProducts, query}) {
         checkBox={checkBox}
         setQuery={setQuery}
         allProducts={allProducts}
-        query={query}
       />
       <div className={styles.main}>
         <TableProducts

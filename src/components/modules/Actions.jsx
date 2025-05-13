@@ -14,7 +14,6 @@ function Actions({
   checkBox,
   setQuery,
   allProducts,
-  query
 }) {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -43,7 +42,6 @@ function Actions({
           <PriceInputs
             setQuery={setQuery}
             allProducts={allProducts}
-            query={query}
           />
         {!groupDelete.length ? (
           <button

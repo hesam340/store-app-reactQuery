@@ -50,7 +50,6 @@ function HomePage() {
       <Main
         products={products.data}
         setQuery={setQuery}
-        query={query}
         allProducts={allProducts}
       />
       <Paginate query={query} setQuery={setQuery} count={products.totalPages} />

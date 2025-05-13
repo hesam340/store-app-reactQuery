@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { e2p } from "utils/replaceNumber";
 import { useSearchParams } from "react-router-dom";
 
-function PriceInputs({ setQuery, allProducts, query }) {
+function PriceInputs({ setQuery, allProducts }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const [price, setPrice] = useState({});
 
@@ -57,10 +57,6 @@ function PriceInputs({ setQuery, allProducts, query }) {
 
       return newQuery;
     });
-  };
-
-  const cancelHandler = () => {
-    reset({ minPrice: "", maxPrice: "" });
   };
 
   return (
