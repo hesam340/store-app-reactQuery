@@ -1,6 +1,7 @@
 import Loader from "components/modules/Loader";
 import Paginate from "components/modules/Paginate";
 import Main from "components/templates/Main";
+import Search from "components/templates/Search";
 import { useAllProducts } from "hooks/queries";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -11,7 +12,10 @@ import { getInitialQuery } from "utils/query";
 function HomePage() {
   const [allProducts, setAllProducts] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [query, setQuery] = useState({ limit: 10, ...getInitialQuery(searchParams) });
+  const [query, setQuery] = useState({
+    limit: 10,
+    ...getInitialQuery(searchParams),
+  });
   console.log(query);
 
   const {
@@ -33,20 +37,22 @@ function HomePage() {
   }, [products]);
 
   useEffect(() => {
-    setSearchParams(query)
+    setSearchParams(query);
     refetch();
   }, [query]);
 
   if (productsLoading) return <Loader />;
 
   if (productsError) {
-    return toast.error(
-      "هیچ محصولی در بازه قیمتی وارد شده وجود ندارد ، لطفا دوباره صفحه را ریلود کنید"
+    toast.error(
+      "خطا در دیافت اطلاعات ، هیچ کالایی با کلمه جستجو شده یا بازه قیمتی وارد شده همخوانی ندارد ، لطفا صفحه را ریلود کنید"
     );
+    return setQuery({ page: 1, limit: 10 });
   }
 
   return (
     <div style={{ padding: "20px 50px 30px" }}>
+      <Search setQuery={setQuery} />
       <Main
         products={products.data}
         setQuery={setQuery}
