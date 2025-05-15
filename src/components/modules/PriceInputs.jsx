@@ -1,11 +1,13 @@
-import { useForm } from "react-hook-form";
-import Input from "./Input";
-import styles from "./PriceInputs.module.css";
-import priceSchema from "validation/priceSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useEffect, useState } from "react";
-import { e2p } from "utils/replaceNumber";
 import { useSearchParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+
+import priceSchema from "validation/priceSchema";
+import { e2p } from "utils/replaceNumber";
+import Input from "./Input";
+
+import styles from "./PriceInputs.module.css";
 
 function PriceInputs({ setQuery, allProducts }) {
   const [searchParams, setSearchParams] = useSearchParams();

@@ -1,9 +1,3 @@
-.actions {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 30px;
-}
-
 .titleRight {
   display: flex;
   color: #282828;

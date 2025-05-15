@@ -11,7 +11,7 @@ function SignupForm({ setStep, register, handleSubmit, errors, reset }) {
     setStep(2);
     reset();
   };
-  
+
   const signupHandler = async (data) => {
     const result = await signup(data);
     if (result?.res?.message) {
@@ -23,8 +23,6 @@ function SignupForm({ setStep, register, handleSubmit, errors, reset }) {
     } else {
       toast.error("مشکلی پیش آمده لطفا بعدا تلاش کنید!");
     }
-
-    console.log(result);
   };
 
   return (

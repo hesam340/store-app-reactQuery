@@ -1,11 +1,11 @@
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from "react-router-dom";
 
-import AuthPage from 'pages/AuthPage';
-import HomePage from 'pages/HomePage';
-import { getCookie } from 'utils/cookie';
+import { useUser } from "context/UserContext";
+import AuthPage from "pages/AuthPage";
+import HomePage from "pages/HomePage";
 
 function Router() {
-  const token = getCookie();
+  const { user } = useUser();
 
   return (
     <Routes>
@@ -13,7 +13,7 @@ function Router() {
       <Route path="/products" element={<HomePage />} />
       <Route
         path="/auth"
-        element={token ? <Navigate to="/" /> : <AuthPage />}
+        element={user.token ? <Navigate to="/" /> : <AuthPage />}
       />
     </Routes>
   );

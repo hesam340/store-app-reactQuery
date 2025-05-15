@@ -4,7 +4,9 @@ const UserContext = createContext();
 
 function UserProvider({ children }) {
   const [user, setUser] = useState(() => {
-    return JSON.parse(localStorage.getItem("data")) || { username: "" };
+    return (
+      JSON.parse(localStorage.getItem("data")) || { username: "", token: "" }
+    );
   });
 
   useEffect(() => {

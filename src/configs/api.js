@@ -1,5 +1,4 @@
 import axios from "axios";
-import { getCookie } from "utils/cookie";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
@@ -10,9 +9,9 @@ const methodsNeedToken = ["post", "put", "delete"];
 
 api.interceptors.request.use(
   (request) => {
-    const token = getCookie()
+    const token = document.cookie.split("=")[1];
     if (token && methodsNeedToken.includes(request.method)) {
-      request.headers["Authorization"] = `Bearer ${token}`
+      request.headers["Authorization"] = `Bearer ${token}`;
     }
     return request;
   },

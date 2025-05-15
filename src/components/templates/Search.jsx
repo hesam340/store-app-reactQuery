@@ -1,15 +1,21 @@
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
 
-import styles from "./Search.module.css";
+import DeleteModal from "components/modules/DeleteModal";
 import { useUser } from "context/UserContext";
 
+import styles from "./Search.module.css";
+
 function Search({ setQuery }) {
+  const navigate = useNavigate();
+
   const { user, setUser } = useUser();
   const [searchText, setSearchText] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
-  const [showExitProfile, setShowExitProfile] = useState(false);
-  const [avatar, setAvatar] = useState(null);
+  const [showExitModal, setShowExitModal] = useState(false);
+  const [avatar, setAvatar] = useState(() => {
+    JSON.parse(localStorage.getItem("data")).avatar || null;
+  });
 
   const search = searchParams.get("name");
 
@@ -45,6 +51,12 @@ function Search({ setQuery }) {
     }
   };
 
+  const confirmHandler = () => {
+    setUser({ username: "", token: "" });
+    document.cookie = `token="";max-age=0`;
+    setShowExitModal(false);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.search}>
@@ -58,14 +70,7 @@ function Search({ setQuery }) {
         />
       </div>
       <div className={styles.profile}>
-        {!showExitProfile ? (
-          <button
-            className={styles.enterProfile}
-            onClick={() => setShowExitProfile(true)}
-          >
-            ورود به حساب کاربری
-          </button>
-        ) : (
+        {user.token ? (
           <div className={styles.exitProfile}>
             <div>
               <img src={user.avatar || "./profile.svg"} alt="avatar" />
@@ -78,10 +83,25 @@ function Search({ setQuery }) {
               />
             </div>
             <p>{user.username}</p>
-            <button>خروج از حساب کاربری</button>
+            <button onClick={() => setShowExitModal(true)}>
+              خروج از حساب کاربری
+            </button>
           </div>
+        ) : (
+          <button
+            className={styles.enterProfile}
+            onClick={() => navigate("/auth")}
+          >
+            ورود به حساب کاربری
+          </button>
         )}
       </div>
+      {showExitModal && (
+        <DeleteModal
+          confirmHandler={confirmHandler}
+          setShowExitModal={setShowExitModal}
+        />
+      )}
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+
 import api from "configs/api";
 
 const useAllProducts = (query) => {

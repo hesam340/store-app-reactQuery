@@ -1,4 +1,4 @@
-import { number, object, ref } from "yup";
+import { number, object } from "yup";
 
 const priceSchema = object({
   minPrice: number()

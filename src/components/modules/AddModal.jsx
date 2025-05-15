@@ -1,19 +1,14 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-
-import styles from "./AddModal.module.css";
-import productSchema from "validation/productSchema";
-import ProductInput from "components/modules/ProductInput";
-import { useAddProduct } from "hooks/mutations";
 import { useEffect } from "react";
 
-function AddModal({
-  setShowAddModal,
-  mutate: editMutate,
-  id,
-  setShowEditModal,
-  product,
-}) {
+import productSchema from "validation/productSchema";
+import { useAddProduct } from "hooks/mutations";
+import ProductInput from "./ProductInput";
+
+import styles from "./AddModal.module.css";
+
+function AddModal({ setShowAddModal, id, setShowEditModal, product }) {
   const { mutate } = useAddProduct();
 
   const {
@@ -41,7 +36,7 @@ function AddModal({
   };
 
   const editHandler = (data) => {
-    editMutate({ ...data, id });
+    mutate({ ...data, id });
     reset();
     setShowEditModal(false);
   };

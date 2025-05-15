@@ -12,7 +12,7 @@ function ProductInput({ name, title, register, errors }) {
       />
       <span>{errors[name]?.message}</span>
     </div>
-  )
+  );
 }
 
-export default ProductInput
+export default ProductInput;

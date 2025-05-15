@@ -1,22 +1,29 @@
-import Loader from "components/modules/Loader";
-import Paginate from "components/modules/Paginate";
-import Main from "components/templates/Main";
-import Search from "components/templates/Search";
-import { useAllProducts } from "hooks/queries";
-import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import getAllPages from "utils/getAllPages";
+
+import TableProducts from "components/templates/TableProducts";
+import Paginate from "components/modules/Paginate";
+import Actions from "components/templates/Actions";
+import Search from "components/templates/Search";
+import Loader from "components/modules/Loader";
+import { useAllProducts } from "hooks/queries";
+import { useUser } from "context/UserContext";
 import { getInitialQuery } from "utils/query";
+import getAllPages from "utils/getAllPages";
+
+import styles from "./HomePage.module.css";
 
 function HomePage() {
+  const { user, setUser } = useUser();
   const [allProducts, setAllProducts] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [groupDelete, setGroupDelete] = useState([]);
+  const [checkBox, setCheckBox] = useState(false);
   const [query, setQuery] = useState({
     limit: 10,
     ...getInitialQuery(searchParams),
   });
-  console.log(query);
 
   const {
     isPending: productsLoading,
@@ -24,7 +31,6 @@ function HomePage() {
     error: productsError,
     refetch,
   } = useAllProducts(query);
-  console.log({ productsLoading, products, productsError });
 
   useEffect(() => {
     if (products) {
@@ -41,6 +47,10 @@ function HomePage() {
     refetch();
   }, [query]);
 
+  useEffect(() => {
+    if (!user.token || !document.cookie) setUser({ username: "", token: "" });
+  }, [user.token, document.cookie]);
+
   if (productsLoading) return <Loader />;
 
   if (productsError) {
@@ -51,13 +61,25 @@ function HomePage() {
   }
 
   return (
-    <div style={{ padding: "20px 50px 30px" }}>
+    <div className={styles.container}>
       <Search setQuery={setQuery} />
-      <Main
-        products={products.data}
-        setQuery={setQuery}
-        allProducts={allProducts}
-      />
+      <div className={styles.actions}>
+        <Actions
+          setCheckBox={setCheckBox}
+          setGroupDelete={setGroupDelete}
+          groupDelete={groupDelete}
+          checkBox={checkBox}
+          setQuery={setQuery}
+          allProducts={allProducts}
+        />
+        <div className={styles.table}>
+          <TableProducts
+            products={products.data}
+            checkBox={checkBox}
+            setGroupDelete={setGroupDelete}
+          />
+        </div>
+      </div>
       <Paginate query={query} setQuery={setQuery} count={products.totalPages} />
     </div>
   );

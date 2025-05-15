@@ -1,4 +1,5 @@
 import axios from "axios";
+
 import api from "configs/api";
 
 const getAllPages = (totalPages) => {

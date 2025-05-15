@@ -1,5 +1,6 @@
 import { PaginationItem, Stack } from "@mui/material";
 import { Pagination } from "@mui/material";
+
 import { e2p } from "utils/replaceNumber";
 
 function Paginate({ query, setQuery, count }) {

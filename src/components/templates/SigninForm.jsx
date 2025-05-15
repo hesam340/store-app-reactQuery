@@ -3,7 +3,6 @@ import { toast } from "react-toastify";
 
 import { useUser } from "context/userContext";
 import Input from "components/modules/Input";
-import { setCookie } from "utils/cookie";
 import { signin } from "services/auth";
 
 import styles from "./SignupForm.module.css";
@@ -21,8 +20,12 @@ function SigninForm({ setStep, register, handleSubmit, errors, reset }) {
     const result = await signin(data);
     if (result?.res?.token) {
       toast.success(`${data.username} خوش آمدید`);
-      setCookie(result.res.token);
-      setUser({ username: data.username });
+      document.cookie = `token=${result.res.token};`;
+      setUser((user) => ({
+        ...user,
+        username: data.username,
+        token: result.res.token,
+      }));
       navigate("/");
       reset();
     } else if (result?.error?.status === 400) {
@@ -30,8 +33,6 @@ function SigninForm({ setStep, register, handleSubmit, errors, reset }) {
     } else {
       toast.error("مشکلی پیش آمده لطفا بعدا تلاش کنید!");
     }
-
-    console.log(result);
   };
 
   return (

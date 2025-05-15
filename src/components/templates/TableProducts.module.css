@@ -1,0 +1,21 @@
+.table {
+  width: 100%;
+  border-radius: 30px;
+}
+
+.table thead th {
+  background-color: #f1f1f1;
+  padding: 15px 0px;
+  font-weight: 400;
+  font-size: 1.1rem;
+  text-align: center;
+  color: #282828;
+}
+
+.table thead th:first-child {
+  border-top-right-radius: 30px;
+}
+
+.table thead th:last-child {
+  border-top-left-radius: 30px;
+}

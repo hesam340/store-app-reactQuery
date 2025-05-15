@@ -1,46 +1,21 @@
-import productId from "utils/productId";
-import { sp } from "utils/replaceNumber";
-
-import styles from "./TableProducts.module.css";
 import { useEffect, useState } from "react";
-import EditModal from "./EditModal";
-import DeleteModal from "./DeleteModal";
+import { toast } from "react-toastify";
+
 import { useDeleteProduct } from "hooks/mutations";
+import { useUser } from "context/UserContext";
+import { sp } from "utils/replaceNumber";
+import DeleteModal from "./DeleteModal";
+import productId from "utils/productId";
+import AddModal from "./AddModal";
 
-function TableProducts({ products, checkBox, setGroupDelete }) {
-  return (
-    <table className={styles.table}>
-      <thead>
-        <tr>
-          {checkBox && <th></th>}
-          <th>نام کالا</th>
-          <th>موجودی</th>
-          <th>قیمت (تومان)</th>
-          <th>شناسه کالا</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        {products.map((product) => (
-          <TableRow
-            key={product.id}
-            product={product}
-            checkBox={checkBox}
-            setGroupDelete={setGroupDelete}
-          />
-        ))}
-      </tbody>
-    </table>
-  );
-}
-
-export default TableProducts;
+import styles from "./TableRow.module.css";
 
 function TableRow({ product, checkBox, setGroupDelete }) {
   const { name, quantity, price, id } = product;
   const [checked, setChecked] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const { user } = useUser();
 
   const { mutate } = useDeleteProduct();
 
@@ -60,12 +35,28 @@ function TableRow({ product, checkBox, setGroupDelete }) {
     }
   }, [checkBox]);
 
+  const editHandler = () => {
+    if (user.token) {
+      setShowEditModal(true);
+    } else {
+      toast.error("لطفا ابتدا وارد حساب کاربری خود شوید");
+    }
+  };
+
+  const deleteHandler = () => {
+    if (user.token) {
+      setShowDeleteModal(true);
+    } else {
+      toast.error("لطفا ابتدا وارد حساب کاربری خود شوید");
+    }
+  };
+
   const confirmHandler = () => {
     mutate(id);
   };
 
   return (
-    <tr>
+    <tr className={styles.row}>
       {checkBox && (
         <td>
           <input
@@ -81,16 +72,16 @@ function TableRow({ product, checkBox, setGroupDelete }) {
       <td>{productId(id)}</td>
       <td>
         <div>
-          <button onClick={() => setShowEditModal(true)}>
+          <button onClick={editHandler}>
             <img src="./edit.svg" alt="edit" />
           </button>
-          <button onClick={() => setShowDeleteModal(true)}>
+          <button onClick={deleteHandler}>
             <img src="./trash.svg" alt="trash" />
           </button>
         </div>
       </td>
       {showEditModal && (
-        <EditModal
+        <AddModal
           id={id}
           setShowEditModal={setShowEditModal}
           product={product}
@@ -106,3 +97,5 @@ function TableRow({ product, checkBox, setGroupDelete }) {
     </tr>
   );
 }
+
+export default TableRow;
