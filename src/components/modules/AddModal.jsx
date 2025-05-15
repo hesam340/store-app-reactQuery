@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 
 import productSchema from "validation/productSchema";
+import { useEditProduct } from "hooks/mutations";
 import { useAddProduct } from "hooks/mutations";
 import ProductInput from "./ProductInput";
 
@@ -10,6 +11,7 @@ import styles from "./AddModal.module.css";
 
 function AddModal({ setShowAddModal, id, setShowEditModal, product }) {
   const { mutate } = useAddProduct();
+  const { mutate: editMutate } = useEditProduct();
 
   const {
     register,
@@ -36,7 +38,7 @@ function AddModal({ setShowAddModal, id, setShowEditModal, product }) {
   };
 
   const editHandler = (data) => {
-    mutate({ ...data, id });
+    editMutate({ ...data, id });
     reset();
     setShowEditModal(false);
   };

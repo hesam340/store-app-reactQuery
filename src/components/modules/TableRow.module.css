@@ -16,17 +16,17 @@
   justify-content: space-evenly;
 }
 
-.row button {
+.row td button {
   border: none;
   background-color: #fff;
   cursor: pointer;
   transition: all 0.2s ease-in;
 }
 
-.row button:hover {
+.row td button:hover {
   transform: scale(1.2);
 }
 
-.row button img {
+.row td button img {
   width: 25px;
 }
